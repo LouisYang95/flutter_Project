@@ -1,5 +1,7 @@
 class Person {
   String adress;
-  String name;
-  Person({required this.name, required this.adress});
+  String firstName;
+  String lastName;
+  Person(
+      {required this.adress, required this.firstName, required this.lastName});
 }

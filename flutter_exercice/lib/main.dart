@@ -54,13 +54,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List listOfpeople = [];
-  final _myController = TextEditingController();
-  final _myController2 = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
+  final _adress = TextEditingController();
   List people = [
-    Person(name: 'John', adress: '123 Main St'),
-    Person(name: 'Jane', adress: '456 Main St'),
-    Person(name: 'Michel', adress: '789 Main St'),
-    Person(name: 'Sara', adress: '101 Main St'),
+    Person(firstName: 'John', lastName: 'John', adress: '123 Main St'),
+    Person(firstName: 'Jane', lastName: 'Paul', adress: '456 Main St'),
+    Person(firstName: 'Michel', lastName: 'Oka', adress: '789 Main St'),
+    Person(firstName: 'Sara', lastName: 'James', adress: '101 Main St'),
   ];
 
   List colors = [
@@ -88,13 +89,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //function to add a new person in the list
   void addNewPerson() {
-    final person =
-        Person(name: _myController.text, adress: _myController2.text);
+    final person = Person(
+        firstName: _firstName.text,
+        lastName: _lastName.text,
+        adress: _adress.text);
     setState(() {
-      if (_myController.text != '' && _myController2.text != '') {
+      if (_firstName.text != '' && _lastName.text != '' && _adress.text != '') {
         listOfpeople.add(person);
-        _myController.text = '';
-        _myController2.text = '';
+        _firstName.text = '';
+        _lastName.text = '';
+        _adress.text = '';
         Navigator.of(context).pop();
       }
     });
@@ -107,22 +111,29 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) {
           return AlertDialog(
               content: SizedBox(
-            height: 200,
+            height: 250,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextField(
-                  controller: _myController,
+                  controller: _firstName,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10),
-                    labelText: 'Name',
+                    labelText: 'first name',
                   ),
                 ),
                 TextField(
-                  controller: _myController2,
+                  controller: _lastName,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10),
-                    labelText: 'Adress',
+                    labelText: 'last name',
+                  ),
+                ),
+                TextField(
+                  controller: _adress,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10),
+                    labelText: 'adress',
                   ),
                 ),
                 ElevatedButton(
@@ -160,10 +171,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   tileColor:
                       colors.length > index ? colors[index] : Colors.grey,
                   leading: Icon(Icons.person),
-                  title: Text(listOfpeople[index].name,
+                  title: Text(listOfpeople[index].firstName,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       )),
+                  subtitle: Text(listOfpeople[index].lastName),
                 ),
                 ListTile(
                   tileColor:
